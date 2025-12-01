@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 // Structs allow you to hold data items of different types in a single variable
 // Struct definitions can be used to declare a struct variable within your program
