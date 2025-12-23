@@ -6,7 +6,12 @@
 # The return value should be stored in a0
 f:
     # Your code here
-
+    addi a0, a0, 3 # Add 3 to the a0
+    
+    slli t1, a0, 2 # bias is a0 * 4
+    add t1, t1, a1 # t1 = bias + a1's adddress
+    
+    lw a0 0(t1)
     # This is how you return from a function. You'll learn more about this later.
     # This should be the last line in your program.
     jr ra
