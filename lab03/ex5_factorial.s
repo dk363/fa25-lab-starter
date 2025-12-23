@@ -27,20 +27,14 @@ main:
 # The return value should be stored in a0
 factorial:
     # YOUR CODE HERE
-    
-    bne a0 x0 else_part # if a0 == x0 
-    addi a0 x0 1 # a0 == x0 + 1 
-    j end # jump to the end
-else_part:
-    # a0 not equal to 0
-    mv t0 a0 # save the a0 to the t0
-    addi a0 x0 1 # a0 = 1
-    bne t0 x0 loop # if t0 != 0
+    li t0 1
     loop:
-        mul a0 a0 t0 # a0 = a0 * t0
-        addi t0 t0 -1 # t0 = t0 - 1
-        bne t0 x0 loop
-end:
+        beq a0 x0 end
+        mul t0 t0 a0
+        addi a0 a0 -1
+        j loop
+    end:
+        mv a0 t0
     # This is how you return from a function. You'll learn more about this later.
     # This should be the last line in your program.
     jr ra
