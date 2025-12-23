@@ -1,18 +1,18 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 
+typedef char* char_pointer;
 struct Course {
     int id;
-    char *name;
+    char_pointer name;
 };
 
-struct Course *make_course(int id, char *name) {
+struct Course* make_course(int id, char *name) {
     struct Course *new_course = malloc(sizeof(struct Course));
     new_course->id = id;
-    new_course->name = *name;
+    new_course->name = name;
 
-    return &new_course;
+    return new_course;
 }
 int main() {
     struct Course *cs161 = make_course(161, "Computer Security");
