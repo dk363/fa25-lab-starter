@@ -38,3 +38,13 @@ risvc 中专门对 Immediates 做了单独的指令
 
 [图形化工具](https://venus.cs61c.org/)
 
+
+
+1. Blowing the whistle on soccer
+2. Leisure inactivities - or how to relax and do nothing
+3. Can bad luck be explained?
+4. College just isn't special any more
+5. After twenty years
+6. War
+
+
