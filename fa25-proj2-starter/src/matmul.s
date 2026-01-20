@@ -26,13 +26,20 @@
 matmul:
 
     # Error checks
-
+    li t0 1
+    ble a1 t0 length_less_than_one
+    ble a1 t0 length_less_than_one
+    ble a4 t0 length_less_than_one
+    ble a5 t0 length_less_than_one
+    
+    bne a2 a4 Acols_not_equal_Brows
 
     # Prologue
-
+    addi sp sp -4
+    sw ra 0(sp)
 
 outer_loop_start:
-
+    
 
 
 
@@ -47,8 +54,14 @@ inner_loop_start:
 
 
 
-
-
+length_less_than_one:
+    li a0 36
+    j exit
+    
+Acols_not_equal_Brows:
+    li a0 38
+    j exit
+    
 inner_loop_end:
 
 
@@ -58,6 +71,8 @@ outer_loop_end:
 
 
     # Epilogue
-
+    lw ra 0(sp)
+    addi sp sp 4
+    
 
     jr ra
