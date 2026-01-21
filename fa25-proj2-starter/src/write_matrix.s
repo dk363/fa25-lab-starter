@@ -25,16 +25,74 @@
 write_matrix:
 
     # Prologue
+    addi sp sp -24
+    sw ra 0(sp)
+    sw s0 4(sp)
+    sw a2 8(sp)
+    sw a3 12(sp)
+    sw a1 16(sp)
+    sw s1 20(sp)
+    
+    
+    # open file
+    li a1 1 # 1 represents write only
+    call fopen
+    li t0 -1
+    beq a0 t0 fopen_error
+    add s0 a0 x0 # s0, file descriptor
 
+    # write the row 
+    add a0 s0 x0
+    addi a1 sp 8 # the pointer of the row  
+    li a2 1 # number of elements
+    li a3 4 # size of each elements
+    call fwrite
+    li t0 1 # t0 = 1 = number of elements
+    bne a0 t0 fwrite_error # If a0 != a2, error 
+    
+    # write the col 
+    add a0 s0 x0
+    addi a1 sp 12 # the pointer of the col
+    li a2 1 # number of elements
+    li a3 4 # size of each elements
+    call fwrite
+    li t0 1 # t0 = 1 = number of elements
+    bne a0 t0 fwrite_error # If a0 != a2, error 
 
-
-
-
-
-
+    # write the matrix
+    add a0 s0 x0
+    lw a1 16(sp)
+    lw t0 8(sp) # read the row
+    lw t1 12(sp) # read the col
+    mul a2 t0 t1 # get the size of matrix
+    add s1 a2 x0 # save the size of matrix
+    li a3 4
+    call fwrite
+    bne a0 s1 fwrite_error
+    
+    # close the file
+    add a0 s0 x0 # load the file descriptor
+    call fclose
+    li t0 -1
+    beq a0 t0 fclose_error # a0 == -1, error
 
 
     # Epilogue
-
-
+    lw ra 0(sp)
+    lw s0 4(sp)
+    lw s1 20(sp)
+    addi sp sp 24
+    
     jr ra
+    
+fopen_error:
+    li a0 27
+    j exit
+    
+fwrite_error:
+    li a0 30
+    j exit
+    
+fclose_error:
+    li a0 28
+    j exit
